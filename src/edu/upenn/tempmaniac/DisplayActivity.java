@@ -1,6 +1,6 @@
 package edu.upenn.tempmaniac;
 
-import com.example.androidtablayout.R;
+import edu.upenn.tempmaniac.R;
 
 import edu.upenn.tempServerConnection.Led;
 import edu.upenn.tempServerConnection.Motor;
@@ -426,7 +426,7 @@ public class DisplayActivity extends Activity {
 					}else {
 						ledText = ledText.replace(" ", "");
 						ledText = ledText.replace("#", "");
-						ledText = ledText.replace("/", "");
+						ledText = ledText.replace("/", ",");
 						ledText = ledText.replace("%", "");
 						success = led.showTextOnLed(ledText);
 					}

@@ -15,15 +15,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="Motor Speed:"
+            android:layout_marginLeft="15dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/textViewMotorSpeed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:text="N/A"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -36,15 +39,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="stopUpdateSpeedOnClick"
-            android:text="stop update" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:text="stop update"
+            android:background="@drawable/botton_selector_plain" 
+            style="@style/ButtonText"/>
 
         <Button
             android:id="@+id/buttonResumeUpdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:onClick="resumeUpdateSpeedOnClick"
-            android:text="resume update" />
+            android:text="resume update" 
+            android:background="@drawable/botton_selector_plain"
+            style="@style/ButtonText"/>
     </LinearLayout>
 
     <LinearLayout
@@ -57,21 +67,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="motorSpeeddownOnClick"
-            android:text="Speeddown" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:text="Speeddown"
+            android:background="@drawable/botton_selector_plain" 
+            style="@style/ButtonText"/>
 
         <Button
             android:id="@+id/buttonSpeedUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:onClick="motorSpeedupOnClick"
-            android:text="Speedup" />
+            android:text="Speedup"
+            android:background="@drawable/botton_selector_plain" 
+            style="@style/ButtonText"/>
 
         <CheckBox
             android:id="@+id/checkBoxAutoSpeed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="checkBoxAutoSpeedOnClick"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="10dp"
             android:text="Auto" />
     </LinearLayout>
 
@@ -84,16 +103,23 @@
             android:id="@+id/buttonMotorOff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/botton_selector_plain"
             android:onClick="motorOffOnClick"
-            android:text="Off" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:text="Off"
+            style="@style/ButtonText" />
 
         <Button
             android:id="@+id/buttonMotorOn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="70dp"
+            android:layout_marginTop="10dp"
             android:onClick="motorOnOnClick"
-            android:text="Maximum Speed" />
+            android:text="Maximum Speed"
+            android:background="@drawable/botton_selector_plain"
+            style="@style/ButtonText" />
     </LinearLayout>
 
 </LinearLayout>

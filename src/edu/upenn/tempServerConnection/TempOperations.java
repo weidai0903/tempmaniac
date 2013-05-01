@@ -8,19 +8,21 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Random;
 
+import android.util.Log;
+
 public class TempOperations {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
+
 	}
-	
+
 	ArrayList<String> tempInHour;
 	ArrayList<String> tempIn24Hours;
 	String latestReading;
-	
+
 	/**
 	 * call this function each time before you want to get the NEWEST temp data in Hour or 24 hours
 	 * Otherwise the data returned by all the functions except getLatestReading() will give you the old data
@@ -30,65 +32,92 @@ public class TempOperations {
 		try {
 			String request = "getTemp/1hour";
 			String receive = getResponse(request);
-			 ArrayList<String> r = new  ArrayList<String>();
-	        String[] temps = receive.split(";");
-	        int numTemps = Integer.parseInt(temps[0]);
-	        for(int i = 0; i<numTemps; i++) {
-	        	r.add(temps[i+1]);
-	        }
-	        tempInHour = r;
-	        
-	        request = "getTemp/24hours";
+			ArrayList<String> r = new  ArrayList<String>();
+			String[] temps = receive.split(";");
+			int numTemps = Integer.parseInt(temps[0]);
+			for(int i = 0; i<numTemps; i++) {
+				r.add(temps[i+1]);
+			}
+			tempInHour = r;
+
+			request = "getTemp/24hours";
 			receive = getResponse(request);
 			ArrayList<String> r1 = new  ArrayList<String>();
 			temps = receive.split(";");
-	        numTemps = Integer.parseInt(temps[0]);
-	        for(int i = 0; i<numTemps; i++) {
-	        	r1.add(temps[i+1]);
-	        }
-	        tempIn24Hours = r1;
-	        
-	        return true;
+			numTemps = Integer.parseInt(temps[0]);
+			for(int i = 0; i<numTemps; i++) {
+				r1.add(temps[i+1]);
+			}
+			tempIn24Hours = r1;
+
+			return true;
 		}catch(Exception e) {
 			e.printStackTrace();
 			//System.out.println(e.getMessage());
 			return false;
 		}
-		
-        
+
+
 	}
-	
+
 	/**
 	 * return the latest reading; in Celsious if given true; otherwise Fahrenheit
 	 * @param celcius
 	 * @return
 	 */
 	public Double getLatestReading(boolean celsius) {
-		
+
 		try {
 			String request = "getTemp";
 			String receive = getResponse(request);
 			Double reading = Double.parseDouble(receive);
-			
+
 			if(celsius) {
 				return reading;
 			}else {
 				return reading*1.8+32;
 			}
-			
-			
+
+
 		}catch(Exception e) {
+			Log.v("temp", "fail to get latest reading");
 			//e.printStackTrace();
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 			return null;
 		}
 	}
-	
+
+	public double[] getReadingSinceData(long dateLong) {
+
+		try {
+			String request = "getTemp/since=" + Long.toString(dateLong);
+			String receive = getResponse(request);
+			ArrayList<String> r1 = new  ArrayList<String>();
+			String[] temps = receive.split(";");
+			
+			int numTemps = Integer.parseInt(temps[0]);
+			for(int i = 0; i<numTemps; i++) {
+				r1.add(temps[i+1]);
+				Log.v("temp since", "temps[i+1]");
+			}
+			
+			double[] r = getTempMinMaxAverage(r1);
+
+			return r;
+			
+		}catch(Exception e) {
+			Log.v("temp", "fail to get latest reading");
+			//e.printStackTrace();
+			//System.out.println(e.getMessage());
+			return null;
+		}
+	}
+
 	public Double getFakeLatestReading(boolean celcious) {
 		Random r = new Random();
 		return r.nextInt(1000)*1.0;
 	}
-	
+
 	/**
 	 * double of [min, max, average] on sensor in one hour;NULL if error happens;
 	 * @return
@@ -96,7 +125,7 @@ public class TempOperations {
 	public double[] getTempDataOneHour(){
 		return getTempMinMaxAverage(tempInHour);
 	}
-	
+
 	public double[] getFakeTempDataOneHour() {
 		Random r = new Random();
 		double[] d = new double[3];
@@ -105,8 +134,8 @@ public class TempOperations {
 		d[2] = r.nextInt(1000)*1.0;
 		return d;
 	}
-	
-	
+
+
 	/**
 	 * double of [min, max, average] on sensor in 24 hours;NULL if error happens;
 	 * @return
@@ -114,7 +143,7 @@ public class TempOperations {
 	public double[] getTempData24Hours() {
 		return getTempMinMaxAverage(tempIn24Hours);
 	}
-	
+
 	/**
 	 * Returns all the temp readings on sensor in one hour; NULL if error happens; 
 	 * @return
@@ -130,9 +159,9 @@ public class TempOperations {
 			temps.add(String.format("%1$,.2f", t));
 		}
 		return temps;
-			
+
 	}
-	
+
 	/**
 	 * Returns all the temp readings on sensor in 24 hours; NULL if error happens;
 	 * @return
@@ -140,10 +169,10 @@ public class TempOperations {
 	public ArrayList<String> getAllTemp24Hours(){
 		return tempIn24Hours;
 	}
-	
-	
+
+
 	private double[] getTempMinMaxAverage(ArrayList<String> temps){
-		
+
 		if(temps == null)
 			return null;
 		double min = 1000;
@@ -167,35 +196,35 @@ public class TempOperations {
 			r[2] = 0;
 		return r;
 	}
-	
-	
-	
+
+
+
 	private String getResponse(String request) throws Exception {
 		String serverIP = Server.getServerIP();
 		String addr = serverIP + request;
 		URL url = new URL(addr);
 		System.out.println("sending request:" + addr + " to server");
-        URLConnection connection = url.openConnection();
-        //connection.
-        connection.setConnectTimeout(2*1000);
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        System.out.println("receiving data:");
-        String inputLine;
-        StringBuilder sb = new StringBuilder();
-        while ((inputLine = in.readLine()) != null) {
-            sb.append(inputLine);
-        	System.out.println(inputLine);
-        }
-        in.close();
-        
-        String receive = sb.toString();
-        //System.out.println("stringbulder:"+receive);
-        
-        return receive;
+		URLConnection connection = url.openConnection();
+		//connection.
+		connection.setConnectTimeout(2*1000);
+		BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+		System.out.println("receiving data:");
+		String inputLine;
+		StringBuilder sb = new StringBuilder();
+		while ((inputLine = in.readLine()) != null) {
+			sb.append(inputLine);
+			System.out.println(inputLine);
+		}
+		in.close();
+
+		String receive = sb.toString();
+		//System.out.println("stringbulder:"+receive);
+
+		return receive;
 	}
-	
-	
-	
-	
+
+
+
+
 
 }

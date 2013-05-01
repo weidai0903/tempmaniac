@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
-import com.example.androidtablayout.R;
+import edu.upenn.tempmaniac.R;
 
 import edu.upenn.geolocation.GPSTracker;
 import edu.upenn.geolocation.LocationService;
@@ -47,6 +47,7 @@ public class WeatherActivity extends Activity {
 	EditText editTextCity;
 	String setCity;
 	RadioButton radioCeWeather;
+	String GPSCity = null;
 	boolean showCe = true;
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -187,12 +188,16 @@ public class WeatherActivity extends Activity {
 
 
 	public void dispCurrentTempOnClick(View view) {
+		TextView tvLocation = (TextView)this.findViewById(R.id.textViewCity);
+		GPSCity = tvLocation.getText().toString();
 		setCity = editTextCity.getText().toString();
 		getWeatherTask weatherTask = new getWeatherTask();
 		weatherTask.execute(0);
 	}
 
 	public void dispForecastOnClick(View view) {
+		TextView tvLocation = (TextView)this.findViewById(R.id.textViewCity);
+		GPSCity = tvLocation.getText().toString();
 		setCity = editTextCity.getText().toString();
 		getWeatherTask weatherTask = new getWeatherTask();
 		weatherTask.execute(1);
@@ -233,6 +238,8 @@ public class WeatherActivity extends Activity {
 			myProgress = 0;
 			publishProgress(myProgress);
 		}
+		
+		
 		@Override
 		protected ArrayList<String[]> doInBackground(Integer... params) {
 			Log.v("Weather", "back ground thread starts");
@@ -241,8 +248,15 @@ public class WeatherActivity extends Activity {
 			case 0:
 				String[] condition = null;
 				if(setCity.equals("")) {
-					condition = weather.getCurrentCondition("philadelphia");
+					if(!GPSCity.equals("") && !GPSCity.equals("N/A") ) {
+						condition = weather.getCurrentCondition(GPSCity);
+						Log.v("weather", "get current temp for "+ GPSCity);
+					}else {
+						Log.v("weather", "get current temp for Philly");
+						condition = weather.getCurrentCondition("philadelphia");
+					}
 				}else {
+					Log.v("weather", "show current temp for "+ setCity);
 					condition = weather.getCurrentCondition(setCity);
 				}
 				if(condition == null) {
@@ -290,8 +304,15 @@ public class WeatherActivity extends Activity {
 			case 1:
 				ArrayList<String[]> conditions;
 				if(setCity.equals("")) {
-					conditions = weather.getTempForecast(5, "philadelphia");
+					if(!GPSCity.equals("") || !GPSCity.equals("N/A") ) {
+						conditions = weather.getTempForecast(5, GPSCity);
+						Log.v("weather", "get forcast for "+ GPSCity);
+					}else {
+						Log.v("weather", "get forecast for philly");
+						conditions = weather.getTempForecast(5, "philadelphia");
+					}
 				}else {
+					Log.v("weather", "get forcast for "+ setCity);
 					conditions = weather.getTempForecast(5, setCity);
 				}
 				if(conditions == null) {

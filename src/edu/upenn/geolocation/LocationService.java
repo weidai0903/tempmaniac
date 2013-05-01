@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.androidtablayout.R;
+import edu.upenn.tempmaniac.R;
 
 public class LocationService{
 

@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
         android:text="Display temperature:"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -20,6 +21,7 @@
         <RadioButton
             android:id="@+id/radioDeviceCe"
             android:layout_width="wrap_content"
+            android:layout_marginLeft="8dp"
             android:layout_height="wrap_content"
             android:onClick="deviceRadioOnClick"
             android:text="Celsius" />
@@ -36,15 +38,18 @@
         android:id="@+id/buttonTempFormatSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="12dp"
         android:onClick="tempFormatSubmitOnClick"
-        android:text="Submit" />
+        android:text="Submit"
+        android:background="@drawable/botton_selector_plain" 
+        style="@style/ButtonText" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
         android:text="LED:"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -57,6 +62,8 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:text="Color:"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -69,6 +76,7 @@
                 android:id="@+id/radioLedRed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:onClick="radioLedColorOnClick"
                 android:text="Red" />
 
@@ -90,12 +98,14 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="Text"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
             android:id="@+id/editTextLedText"
             android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_height="wrap_content"
             android:ems="10" />
     </LinearLayout>
@@ -107,21 +117,25 @@
 
         <Button
             android:id="@+id/buttonSend"
-            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             android:onClick="sendToLEDOnClick"
-            android:text="Send" />
+            android:text="Send"
+            android:background="@drawable/botton_selector_plain" 
+       		style="@style/ButtonText" />
 
         <Button
             android:id="@+id/buttonShowTempOnLed"
-            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             android:onClick="buttonLedShowTempOnClick"
-            android:text="Show temp on LED" />
+            android:text="Show temp on LED" 
+            android:background="@drawable/botton_selector_plain" 
+       		style="@style/ButtonText"/>
     </LinearLayout>
 
     <LinearLayout
@@ -133,7 +147,7 @@
             android:id="@+id/checkBoxLed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="14dp"
+            android:layout_marginLeft="10dp"
             android:onClick="showOnLedOnClick"
             android:text="LED On" />
 
@@ -149,8 +163,10 @@
         android:id="@+id/buttonDeviceFinish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="10dp"
         android:onClick="buttonDeviceFinishOnClick"
-        android:text="finish" />
+        android:text="finish" 
+        android:background="@drawable/botton_selector_plain" 
+       	style="@style/ButtonText"/>
 
 </LinearLayout>

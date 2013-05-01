@@ -1,6 +1,6 @@
 package edu.upenn.tempmaniac;
 
-import com.example.androidtablayout.R;
+import edu.upenn.tempmaniac.R;
 
 import android.app.Activity;
 import android.app.TabActivity;

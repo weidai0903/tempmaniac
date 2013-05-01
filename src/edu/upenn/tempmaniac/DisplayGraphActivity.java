@@ -26,7 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import com.example.androidtablayout.R;
+import edu.upenn.tempmaniac.R;
 
 import edu.upenn.tempServerConnection.TempOperations;
 
@@ -75,6 +75,9 @@ public class DisplayGraphActivity extends Activity{
 	    GraphicalView graphView = ChartFactory.getLineChartView( this, xySeries, renderer);
 	    LinearLayout layout = (LinearLayout) findViewById( R.id.LinearLayoutGraph );
 	    layout.addView(graphView);
+	    
+	    RadioButton rb = (RadioButton) this.findViewById(R.id.radioShowBarGraph);
+	    rb.setChecked(true);
 	    
 	    getTempData getData = new getTempData();
 	    getData.execute();

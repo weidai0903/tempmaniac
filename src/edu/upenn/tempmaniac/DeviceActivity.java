@@ -1,6 +1,6 @@
 package edu.upenn.tempmaniac;
 
-import com.example.androidtablayout.R;
+import edu.upenn.tempmaniac.R;
 
 import edu.upenn.tempServerConnection.Led;
 import edu.upenn.tempServerConnection.Motor;

@@ -1,6 +1,6 @@
 package edu.upenn.tempmaniac;
 
-import com.example.androidtablayout.R;
+import edu.upenn.tempmaniac.R;
 
 import android.app.Activity;
 import android.app.TabActivity;
@@ -58,7 +58,7 @@ public class MainActivityNew extends TabActivity {
         // Tab for Videos
         TabSpec accountSpec = tabHost.newTabSpec("Account");
         accountSpec.setIndicator("Account", getResources().getDrawable(R.drawable.icon_facebook_tab));
-        Intent accountIntent = new Intent(this, AccountActivity.class);
+        Intent accountIntent = new Intent(this, AccountActivityNew.class);
         accountSpec.setContent(accountIntent);
         
         // Adding all TabSpec to TabHost

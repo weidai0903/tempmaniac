@@ -29,9 +29,11 @@
                     android:id="@+id/button1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="8dp"
                     android:onClick="onClickCancel"
-                    android:text="Go back" />
+                    android:text="Go back" 
+                    android:background="@drawable/botton_selector_plain" 
+       				style="@style/ButtonText"/>
 
                 <RadioGroup
                     android:layout_width="fill_parent"

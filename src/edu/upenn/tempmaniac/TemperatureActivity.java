@@ -2,7 +2,9 @@ package edu.upenn.tempmaniac;
 
 import java.net.URL;
 import java.util.ArrayList;
-import com.example.androidtablayout.R;
+import java.util.Date;
+
+import edu.upenn.tempmaniac.R;
 
 import edu.upenn.tempServerConnection.TempOperations;
 
@@ -30,6 +32,7 @@ import android.support.v4.app.NotificationCompat.Builder;
 import android.support.v4.app.TaskStackBuilder;
 //import android.support.v4.app.*;
 public class TemperatureActivity extends Activity {
+	private static long appStartTime;
 	private static Handler handler;
 	private TextView latestTemp;
 	private static UpdateReadingThread urt = null;
@@ -41,7 +44,13 @@ public class TemperatureActivity extends Activity {
 	NotificationManager mNotificationManager;
 	private static Activity thisActivity;
 	int numMessages = 0;
-
+	private static String latestTempReading = "N/A";
+	
+	
+	public static String getLatestTempReading() {
+		return latestTempReading;
+	}
+	
 	public static void killUpdateThread() {
 		if(urt!=null) {
 			urt.stopUpdating();
@@ -55,9 +64,11 @@ public class TemperatureActivity extends Activity {
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.temperature);
+
+		Date now = new Date();
+		appStartTime = now.getTime();
 
 		thisActivity = this;
 		latestTemp = (TextView)this.findViewById(R.id.tempReading);
@@ -264,6 +275,12 @@ public class TemperatureActivity extends Activity {
 		System.exit(0);
 	}
 
+	public void buttonSinceStartOnclick(View view) {
+		int options = 4;
+		UpdateTempDataTask updateTemp = new UpdateTempDataTask();
+		updateTemp.execute(options);
+		
+	}
 	public void disp1HourOnClick(View view) {
 		int options = 1;
 		UpdateTempDataTask updateTemp = new UpdateTempDataTask();
@@ -400,6 +417,7 @@ public class TemperatureActivity extends Activity {
 					Message msg = new Message();
 					Bundle b = new Bundle();
 					b.putString("temp", String.format("%.2f", reading));
+					latestTempReading = String.format("%.2f", reading);
 					msg.setData(b);
 					// send message to the handler with the current message handler
 					handler.sendMessage(msg);
@@ -456,6 +474,14 @@ public class TemperatureActivity extends Activity {
 				data = temp.getTempDataOneHour();
 				//data = temp.get
 				break;
+			case 4:
+				Log.v("tempData", "retrieving tempdata since");
+				
+				data = temp.getReadingSinceData(appStartTime);
+				for(int i=0; i<data.length; i++) {
+					Log.v("tempData" , "tempDataSince = "+ data[i]);
+				}
+				break;
 			default:
 				Log.v("tempData", "retrieving tempdata 1 hour(default)");
 				//data = temp.getFakeTempDataOneHour();
@@ -463,8 +489,7 @@ public class TemperatureActivity extends Activity {
 
 				break;
 			}
-
-			Log.v("latest tempData", Double.toString(data[0]));
+			//Log.v("latest tempData", Double.toString(data[0]));
 			if(!showCe) {
 				for(int i=0; i<data.length; i++) {
 					data[i] = convertCeToFa(data[i]); 

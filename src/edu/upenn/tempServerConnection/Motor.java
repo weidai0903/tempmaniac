@@ -155,7 +155,7 @@ public class Motor {
 		URL url = new URL(addr);
 		System.out.println("sending request:" + addr + " to server");
         URLConnection connection = url.openConnection();
-        connection.setConnectTimeout(1*1000);
+        connection.setConnectTimeout(2*1000);
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         System.out.println("receiving data:");
         String inputLine;

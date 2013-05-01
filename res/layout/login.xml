@@ -12,22 +12,40 @@
         android:background="#FFF"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/instructionsOrLink"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/main_ui_container"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:autoLink="web"
-            android:linksClickable="true"
-            android:text="Please login"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:background="#FFF"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/instructionsOrLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:linksClickable="true"
+                android:text="Please login"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/administratorLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:text="Administrator"
+                android:layout_marginLeft="120dp"
+                android:onClick="administratorLoginOnClick"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/buttonLoginLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Login by Facebook" />
-        
-         <TextView
+
+        <TextView
             android:id="@+id/welcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

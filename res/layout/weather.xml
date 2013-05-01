@@ -35,7 +35,9 @@
 	        android:layout_marginLeft="15dp"
 		    android:layout_marginTop="10dp"
 	        android:onClick="buttonUpdateCityOnClick"
-	        android:text="Update current city" />
+	        android:text="Update current city" 
+	        android:background="@drawable/botton_selector_plain" 
+       		style="@style/ButtonText"/>
 
   	<RadioGroup
 	    android:layout_width="fill_parent"
@@ -131,7 +133,9 @@
 	        android:layout_marginLeft="15dp"
 		    android:layout_marginTop="10dp"
 	        android:onClick="dispCurrentTempOnClick"
-	        android:text="Current Weather" />
+	        android:text="Current Weather"
+	        android:background="@drawable/botton_selector_plain" 
+       		style="@style/ButtonText" />
 	
 	<Button
 	        android:id="@+id/buttonDispForecast"
@@ -140,7 +144,9 @@
 	        android:layout_marginLeft="15dp"
 		    android:layout_marginTop="10dp"
 	        android:onClick="dispForecastOnClick"
-	        android:text="Forecast" />
+	        android:text="Forecast"
+	        android:background="@drawable/botton_selector_plain" 
+       		style="@style/ButtonText" />
 	</LinearLayout>
 
 		<ProgressBar
